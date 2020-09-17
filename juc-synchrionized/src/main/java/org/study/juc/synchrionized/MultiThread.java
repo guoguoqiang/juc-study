@@ -13,6 +13,7 @@ public class MultiThread {
 
     /**
      * 临界资源
+     * 这种资源可能是：对象、变量、文件等
      */
     private static int total = 0;
 

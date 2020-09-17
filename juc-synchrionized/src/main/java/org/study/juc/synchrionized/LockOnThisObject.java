@@ -4,6 +4,7 @@ import org.openjdk.jol.info.ClassLayout;
 
 /**
  * 非静态方法
+ * 同步实例方法，锁是当前实例对象
  *
  * @Author ggq
  * @Date 2020/9/16 11:26
