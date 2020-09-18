@@ -1,5 +1,6 @@
 package org.study.juc.aqs;
 
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.LockSupport;
 
 /**
@@ -9,6 +10,8 @@ import java.util.concurrent.locks.LockSupport;
  * @Date 2020/9/16 16:29
  */
 public class ThreadLockSupport {
+    static AtomicInteger atomicInteger = new AtomicInteger();
+
     public static void main(String[] args) {
 
         Thread t0 = new Thread(new Runnable() {
@@ -26,9 +29,12 @@ public class ThreadLockSupport {
         }, "t0");
         t0.start();
         try {
-            Thread.sleep(5000);
-            System.out.println("准备唤醒线程：" + t0.getName());
-            LockSupport.unpark(t0);
+            for (; ; ) {
+                Thread.sleep(5000);
+                System.out.println("第" + atomicInteger.getAndIncrement() + "次唤醒");
+                System.out.println("准备唤醒线程：" + t0.getName());
+                LockSupport.unpark(t0);
+            }
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
